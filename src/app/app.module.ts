@@ -22,8 +22,11 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
-
-
+import { VideoPlayerComponent } from './video-player/video-player.component';
+import { VgCoreModule } from 'videogular2/core';
+import { VgControlsModule } from 'videogular2/controls';
+import { VgOverlayPlayModule } from 'videogular2/overlay-play';
+import { VgBufferingModule } from 'videogular2/buffering';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,7 @@ import { AuthGuard } from './auth/auth-guard.service';
     RecipeEditComponent,
     SignupComponent,
     SigninComponent,
-
+    VideoPlayerComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,10 @@ import { AuthGuard } from './auth/auth-guard.service';
     FormsModule,
     HttpModule,
     AppRoutingModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   providers: [ShoppingListService, RecipeService, DataStorageService, AuthService, AuthGuard],    //injecting here coz later we'll need it to use in recipe list section
   bootstrap: [AppComponent]
