@@ -1,69 +1,92 @@
-<div class="row">
-  <div class="col-xs-12">
-    <img [src]="recipe.imagePath" 
-    alt="{{ recipe.name }}" 
-    class="img-responsive"
-    style="max-height: 300px;">
-    
-  <!-- </div>
+<div class="recipe-detail__container">
   <div class="row">
-    <div class="col-xs-12">
-      <video  height="300px" controls >
-        <source [src]="recipe.videoPath" type='video/mp4'>
-        video not supported
-        </video>
-    </div> -->
-  
-</div>
+    <vg-player>
+      <vg-overlay-play></vg-overlay-play>
+      <vg-buffering></vg-buffering>
 
-<div class="row">
-  <div class="col-xs-12">
-    <h1>{{ recipe.name }}</h1>
-  </div>
-</div>
+      <vg-scrub-bar>
+        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+      </vg-scrub-bar>
 
-<div class="row">
-  <div class="col-xs-12">
-    <div class="btn-group" appDropdown>
-      <button 
-      type="button" 
-      class="btn btn-primary dropdown-toggle">
-      Manage Recipe 
-      <span class="caret"></span>
-    </button>
-      <ul class="dropdown-menu">
-        <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li> <!--inline style to look like a pointer-->
-        <li><a style="cursor: pointer;" (click)="onEditRecipe()">Edit Recipe</a></li>
-        <li><a style="cursor: pointer;" (click)="onDeleteRecipe()">Delete Recipe</a></li>
-    </ul>
+      <vg-controls>
+        <vg-play-pause></vg-play-pause>
+        <vg-playback-button></vg-playback-button>
+
+        <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+        <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+
+        <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+
+        <vg-track-selector></vg-track-selector>
+        <vg-mute></vg-mute>
+        <vg-volume></vg-volume>
+
+        <vg-fullscreen></vg-fullscreen>
+      </vg-controls>
+
+      <video [vgMedia]="media" #media id="singleVideo" preload="auto" crossorigin>
+        <!--<source src="https://youtu.be/isH7f2n1x58" type="video/mp4">-->
+         <source src="http://static.videogular.com/assets/videos/videogular.ogg" type="video/ogg">
+        <!-- <source src="http://static.videogular.com/assets/videos/videogular.webm" type="video/webm"> -->
+
+        <track kind="subtitles" label="English" src="http://static.videogular.com/assets/subs/pale-blue-dot.vtt" srclang="en" default>
+        <track kind="subtitles" label="Español" src="http://static.videogular.com/assets/subs/pale-blue-dot-es.vtt" srclang="es">
+      </video>
+    </vg-player>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>{{ recipe.name }}</h1>
+      </div>
     </div>
-  </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="btn-group" appDropdown>
+          <button
+            type="button"
+            class="btn btn-primary dropdown-toggle">
+            Manage Recipe
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li> <!--inline style to look like a pointer-->
+            <li><a style="cursor: pointer;" (click)="onEditRecipe()">Edit Recipe</a></li>
+            <li><a style="cursor: pointer;" (click)="onDeleteRecipe()">Delete Recipe</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row recipe-desc">
+      <div class="col-xs-12">
+        {{ recipe.description }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <!-- Indgredients-->
+        <ul class="list-group">
+          <li
+            class="list-group-item"
+            *ngFor="let ingredient of recipe.ingredients">
+            {{ ingredient.name }} - {{ ingredient.amount }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <textarea name="comment" id="comment" cols="90" rows="5" placeholder="Leave a Comment..."></textarea>
+        <br>
+        <button class="btn btn-info">Post</button>
+      </div>
+    </div>
 </div>
 
-<div class="row">
-  <div class="col-xs-12">
-    {{ recipe.description }}
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12">
-   <!-- Indgredients-->
-   <ul class="list-group">
-     <li 
-     class="list-group-item" 
-     *ngFor="let ingredient of recipe.ingredients"> 
-       {{ ingredient.name }} - {{ ingredient.amount }}
-     </li>
-   </ul>
-  </div>
-</div>
-<hr>
-
-<div class="row">
-  <div class="col-xs-12">
-    <textarea name="comment" id="comment" cols="90" rows="5" placeholder="Leave a Comment..."></textarea>
-    <br>
-    <button class="btn btn-info">Post</button>
-  </div>
-</div>
